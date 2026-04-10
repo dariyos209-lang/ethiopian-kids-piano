@@ -1,335 +1,479 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ethiopian Kids Piano | akliloves.com</title>
-  <meta name="description" content="The first AI-powered Ethiopian music piano app for kids. Learn Tizita, play games, and explore Ethiopian culture through music."/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>የኢትዮጵያ ፒያኖ | Ethiopian Kids Piano</title>
+  <meta name="description" content="The first AI-powered Ethiopian kids piano app. Learn Tizita scale, play games, explore Ethiopian music."/>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    :root{
-      --green:#4CAF50;--yellow:#FFEB3B;--red:#F44336;
-      --dark:#0f1923;--card:rgba(255,255,255,0.06);
-    }
-    body{font-family:'Poppins',sans-serif;background:var(--dark);color:white;overflow-x:hidden;}
-
-    /* NAV */
-    nav{display:flex;justify-content:space-between;align-items:center;padding:18px 6%;position:sticky;top:0;z-index:100;background:rgba(15,25,35,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.07);}
-    .logo{display:flex;align-items:center;gap:10px;}
-    .logo svg{width:38px;height:38px;}
-    .logo-text{font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,#FFD700,#FF6B6B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .nav-cta{background:linear-gradient(135deg,#667eea,#764ba2);border:none;border-radius:25px;padding:9px 22px;color:white;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;}
-    .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(102,126,234,.4);}
-
-    /* HERO */
-    .hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 6% 40px;position:relative;overflow:hidden;}
-    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(102,126,234,.25) 0%,transparent 70%);}
-    .flag-bar{display:flex;width:180px;height:6px;border-radius:3px;overflow:hidden;margin:0 auto 32px;}
-    .flag-bar div{flex:1;}
-    .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,215,0,.12);border:1px solid rgba(255,215,0,.3);border-radius:20px;padding:6px 16px;font-size:.8rem;color:#FFD700;font-weight:600;margin-bottom:20px;}
-    .hero h1{font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.15;margin-bottom:20px;}
-    .hero h1 span{background:linear-gradient(135deg,#FFD700,#FF6B6B,#667eea);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .hero p{font-size:1.1rem;color:rgba(255,255,255,.7);max-width:560px;line-height:1.7;margin-bottom:36px;}
-    .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
-    .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);border:none;border-radius:30px;padding:14px 32px;color:white;font-weight:700;font-size:1rem;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 6px 24px rgba(102,126,234,.35);}
-    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(102,126,234,.5);}
-    .btn-secondary{background:transparent;border:2px solid rgba(255,255,255,.3);border-radius:30px;padding:14px 32px;color:white;font-weight:600;font-size:1rem;cursor:pointer;text-decoration:none;transition:all .25s;}
-    .btn-secondary:hover{border-color:white;transform:translateY(-3px);}
-    .hero-img{margin-top:52px;position:relative;}
-    .piano-preview{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:28px 32px;display:flex;gap:8px;backdrop-filter:blur(10px);}
-    .key{width:56px;height:110px;border-radius:0 0 12px 12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:10px;gap:4px;font-weight:700;font-size:.85rem;border:none;cursor:default;}
-    .key span.em{font-size:1.2rem;}
-    .floating{animation:float 3s ease-in-out infinite;}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-
-    /* SECTION SHARED */
-    section{padding:80px 6%;}
-    .section-tag{display:inline-block;background:rgba(102,126,234,.15);border:1px solid rgba(102,126,234,.3);border-radius:20px;padding:5px 14px;font-size:.78rem;color:#a78bfa;font-weight:600;margin-bottom:14px;}
-    .section-title{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:800;margin-bottom:14px;}
-    .section-sub{color:rgba(255,255,255,.6);font-size:1rem;line-height:1.7;max-width:540px;margin:0 auto 50px;}
-    .text-center{text-align:center;}
-
-    /* FEATURES */
-    .features{background:rgba(255,255,255,.02);}
-    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:1100px;margin:0 auto;}
-    .feature-card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px 24px;transition:transform .25s,border-color .25s;}
-    .feature-card:hover{transform:translateY(-6px);border-color:rgba(102,126,234,.4);}
-    .feature-icon{font-size:2.2rem;margin-bottom:14px;}
-    .feature-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;}
-    .feature-card p{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.6;}
-
-    /* HOW IT WORKS */
-    .steps{display:flex;flex-direction:column;gap:24px;max-width:680px;margin:0 auto;}
-    .step{display:flex;gap:20px;align-items:flex-start;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;}
-    .step-num{min-width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;}
-    .step h3{font-size:1rem;font-weight:700;margin-bottom:5px;}
-    .step p{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.6;}
-
-    /* PRICING */
-    .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;max-width:800px;margin:0 auto;}
-    .price-card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:32px 28px;text-align:center;transition:transform .25s;}
-    .price-card.featured{background:linear-gradient(135deg,rgba(102,126,234,.2),rgba(118,75,162,.2));border-color:#667eea;transform:scale(1.03);}
-    .price-card:hover{transform:translateY(-6px);}
-    .price-card.featured:hover{transform:scale(1.03) translateY(-6px);}
-    .price-label{font-size:.78rem;font-weight:700;color:#a78bfa;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
-    .price-amount{font-size:2.6rem;font-weight:800;margin:10px 0 4px;}
-    .price-period{color:rgba(255,255,255,.5);font-size:.85rem;margin-bottom:24px;}
-    .price-features{list-style:none;text-align:left;margin-bottom:28px;}
-    .price-features li{padding:7px 0;color:rgba(255,255,255,.75);font-size:.9rem;border-bottom:1px solid rgba(255,255,255,.06);}
-    .price-features li::before{content:'? ';color:#6BCB77;font-weight:700;}
-
-    /* WAITLIST */
-    .waitlist{background:linear-gradient(135deg,rgba(102,126,234,.15),rgba(118,75,162,.15));border-top:1px solid rgba(102,126,234,.2);border-bottom:1px solid rgba(102,126,234,.2);}
-    .waitlist-form{display:flex;gap:12px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
-    .waitlist-form input{flex:1;min-width:220px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:30px;padding:14px 22px;color:white;font-size:.95rem;outline:none;font-family:'Poppins',sans-serif;}
-    .waitlist-form input::placeholder{color:rgba(255,255,255,.45);}
-    .waitlist-form input:focus{border-color:#667eea;}
-    .success-msg{display:none;color:#6BCB77;font-weight:600;margin-top:14px;font-size:.95rem;}
-
-    /* FOOTER */
-    footer{padding:40px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(255,255,255,.07);}
-    footer p{color:rgba(255,255,255,.4);font-size:.85rem;}
-    .footer-links{display:flex;gap:20px;}
-    .footer-links a{color:rgba(255,255,255,.4);font-size:.85rem;text-decoration:none;transition:color .2s;}
-    .footer-links a:hover{color:white;}
-
-    /* STATS */
-    .stats{display:flex;gap:0;max-width:700px;margin:50px auto 0;border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;}
-    .stat{flex:1;padding:24px 16px;text-align:center;border-right:1px solid rgba(255,255,255,.08);}
-    .stat:last-child{border-right:none;}
-    .stat-val{font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,#FFD700,#FF6B6B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .stat-lbl{color:rgba(255,255,255,.5);font-size:.8rem;margin-top:4px;}
-
-    @media(max-width:600px){
-      .piano-preview{gap:4px;padding:18px;}
-      .key{width:38px;height:88px;font-size:.72rem;}
-      .stats{flex-direction:column;}
-      .stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
-      footer{justify-content:center;text-align:center;}
-    }
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    body{font-family:system-ui,sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);min-height:100vh;color:white;overflow-x:hidden;}
+    /* HEADER */
+    .header{text-align:center;padding:16px 12px 8px;}
+    .header-logo{font-size:36px;margin-bottom:4px;}
+    .header-title{font-size:22px;font-weight:800;background:linear-gradient(90deg,#FFD700,#FF6B6B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .header-sub{color:#93c5fd;font-size:11px;margin-top:2px;}
+    /* TABS */
+    .tabs{display:flex;gap:8px;padding:8px 12px;justify-content:center;}
+    .tab{flex:1;max-width:160px;padding:10px;border-radius:12px;border:none;background:rgba(255,255,255,0.08);color:white;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;}
+    .tab.active{background:linear-gradient(135deg,#667eea,#764ba2);}
+    /* CARDS */
+    .card{background:rgba(255,255,255,0.06);border-radius:18px;padding:14px;margin:8px 12px;border:1px solid rgba(255,255,255,0.1);}
+    /* SOUND SELECTOR */
+    .sound-label{color:rgba(255,255,255,0.5);font-size:11px;text-align:center;margin-bottom:8px;}
+    .sound-btns{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;}
+    .sound-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;padding:6px 14px;color:white;cursor:pointer;font-size:13px;transition:all .2s;}
+    .sound-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);border-color:#667eea;font-weight:700;}
+    /* PIANO KEYS */
+    .keys-wrap{overflow-x:auto;padding:4px 0;}
+    .keys{display:flex;gap:4px;min-width:max-content;padding:4px 12px;}
+    .key{width:72px;height:130px;border-radius:0 0 14px 14px;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:10px;gap:3px;transition:transform .1s,box-shadow .1s;touch-action:manipulation;}
+    .key.active{transform:scaleY(0.93);transform-origin:top;}
+    .key-emoji{font-size:18px;}
+    .key-note{font-weight:800;font-size:14px;}
+    .key-kb{font-size:10px;background:rgba(0,0,0,0.25);padding:1px 5px;border-radius:4px;color:rgba(255,255,255,0.7);}
+    .keys-hint{color:rgba(255,255,255,0.3);text-align:center;font-size:11px;margin-top:6px;}
+    /* SONG INPUT */
+    .input-row{display:flex;gap:8px;}
+    .song-input{flex:1;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:10px 14px;color:white;font-size:14px;outline:none;}
+    .song-input::placeholder{color:rgba(255,255,255,0.4);}
+    .song-btn{background:linear-gradient(135deg,#667eea,#764ba2);border:none;border-radius:10px;padding:10px 14px;color:white;font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap;}
+    .song-btn:disabled{background:#444;cursor:not-allowed;}
+    .now-playing{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+    .now-name{color:#93c5fd;font-size:13px;flex:1;}
+    .play-btn{background:linear-gradient(135deg,#11998e,#38ef7d);border:none;border-radius:8px;padding:7px 14px;color:white;font-weight:700;cursor:pointer;font-size:13px;}
+    .stop-btn{background:linear-gradient(135deg,#ee0979,#ff6a00);border:none;border-radius:8px;padding:7px 14px;color:white;font-weight:700;cursor:pointer;font-size:13px;}
+    /* SUGGESTIONS */
+    .suggs{display:flex;flex-wrap:wrap;gap:7px;padding:4px 12px 12px;}
+    .sugg{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:20px;padding:6px 13px;color:white;cursor:pointer;font-size:12px;transition:all .2s;}
+    .sugg:hover,.sugg:active{background:rgba(255,255,255,0.15);}
+    /* GAME */
+    .level-row{display:flex;gap:8px;margin:8px 12px;}
+    .level-card{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:all .2s;}
+    .level-card.active{background:rgba(102,126,234,0.2);border-color:#667eea;}
+    .level-name{font-weight:700;font-size:12px;}
+    .level-score{color:#FFD93D;font-size:12px;margin-top:2px;}
+    .game-center{text-align:center;}
+    .game-title{font-size:20px;font-weight:800;margin:8px 0 4px;}
+    .game-sub{color:rgba(255,255,255,0.6);font-size:13px;margin-bottom:16px;}
+    .start-btn{background:linear-gradient(135deg,#11998e,#38ef7d);border:none;border-radius:12px;padding:12px 28px;color:white;font-weight:700;font-size:15px;cursor:pointer;}
+    .countdown-num{font-size:80px;font-weight:800;color:white;}
+    .score-bar{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.06);border-radius:12px;padding:12px 14px;margin:8px 12px;}
+    .score-val{font-size:22px;font-weight:800;}
+    .combo-badge{background:linear-gradient(135deg,#FF6B6B,#FF8E53);border-radius:20px;padding:4px 12px;font-weight:800;font-size:14px;}
+    .remaining{color:rgba(255,255,255,0.6);font-size:13px;}
+    .target-card{text-align:center;transition:border-color .2s;}
+    .target-card.correct{border-color:#38ef7d !important;}
+    .target-card.wrong,.target-card.miss{border-color:#FF6B6B !important;}
+    .target-emoji{font-size:52px;margin:4px 0;}
+    .target-note{font-size:34px;font-weight:800;margin:4px 0;}
+    .target-hint{color:rgba(255,255,255,0.6);font-size:12px;}
+    .feed-correct{color:#38ef7d;font-weight:700;font-size:16px;margin-top:4px;}
+    .feed-wrong{color:#FF6B6B;font-weight:700;font-size:16px;margin-top:4px;}
+    .progress-bg{width:100%;height:7px;background:rgba(255,255,255,0.1);border-radius:4px;margin-top:12px;overflow:hidden;}
+    .progress-fill{height:100%;border-radius:4px;transition:width .1s linear;}
+    .result-row{display:flex;justify-content:center;gap:24px;margin:14px 0;}
+    .result-item{text-align:center;}
+    .result-val{font-size:24px;font-weight:800;}
+    .result-lbl{color:rgba(255,255,255,0.6);font-size:11px;margin-top:2px;}
+    .new-record{color:#FFD93D;font-weight:700;margin-bottom:10px;}
+    .result-btns{display:flex;gap:10px;justify-content:center;}
+    .btn-green{background:linear-gradient(135deg,#11998e,#38ef7d);border:none;border-radius:10px;padding:11px 22px;color:white;font-weight:700;cursor:pointer;}
+    .btn-purple{background:linear-gradient(135deg,#667eea,#764ba2);border:none;border-radius:10px;padding:11px 22px;color:white;font-weight:700;cursor:pointer;}
+    /* PARTICLES */
+    .particle{position:fixed;font-size:26px;pointer-events:none;z-index:999;animation:floatUp 1.2s ease-out forwards;}
+    @keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-110px) scale(0.4);opacity:0;}}
+    @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+    .pop{animation:pop 0.4s ease;}
+    /* HIDE */
+    .hidden{display:none !important;}
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="logo">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="64" height="64" rx="14" fill="#0f1923"/>
-      <rect x="4" y="4" width="56" height="8" rx="3" fill="#4CAF50"/>
-      <rect x="4" y="12" width="56" height="8" fill="#FFEB3B"/>
-      <rect x="4" y="20" width="56" height="8" fill="#F44336"/>
-      <rect x="6" y="30" width="9" height="26" rx="3" fill="white" opacity=".92"/>
-      <rect x="17" y="30" width="9" height="26" rx="3" fill="white" opacity=".92"/>
-      <rect x="28" y="30" width="9" height="26" rx="3" fill="white" opacity=".92"/>
-      <rect x="39" y="30" width="9" height="26" rx="3" fill="white" opacity=".92"/>
-      <rect x="50" y="30" width="9" height="26" rx="3" fill="white" opacity=".92"/>
-      <rect x="13" y="30" width="6" height="16" rx="2" fill="#0f1923"/>
-      <rect x="24" y="30" width="6" height="16" rx="2" fill="#0f1923"/>
-      <rect x="35" y="30" width="6" height="16" rx="2" fill="#0f1923"/>
-      <rect x="46" y="30" width="6" height="16" rx="2" fill="#0f1923"/>
-    </svg>
-    <span class="logo-text">Ethiopian Kids Piano</span>
-  </div>
-  <a href="#waitlist" class="nav-cta">?? Get Early Access</a>
-</nav>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">🎹🇪🇹</div>
+  <div class="header-title">የኢትዮጵያ ፒያኖ</div>
+  <div class="header-sub">የትዝታ ቅኝት • Tizita Scale</div>
+</div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="flag-bar">
-    <div style="background:#4CAF50"></div>
-    <div style="background:#FFEB3B"></div>
-    <div style="background:#F44336"></div>
-  </div>
-  <div class="badge">???? First of its kind � AI-Powered � For Kids</div>
-  <h1>Learn Ethiopian Music<br/><span>Through Play & Joy</span></h1>
-  <p>The first interactive piano app built on the Tizita pentatonic scale. Let your child discover Ethiopia's rich musical heritage � one note at a time.</p>
-  <div class="hero-btns">
-    <a href="#waitlist" class="btn-primary">?? Join the Waitlist � Free</a>
-    <a href="#features" class="btn-secondary">? See Features</a>
-  </div>
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('piano')">🎹 ፒያኖ</button>
+  <button class="tab" onclick="switchTab('game')">🎯 ጨዋታ</button>
+</div>
 
-  <div class="hero-img floating">
-    <div class="piano-preview">
-      <div class="key" style="background:linear-gradient(to bottom,#FF6B6Bdd,#FF6B6B66)"><span class="em">??</span><span>?</span></div>
-      <div class="key" style="background:linear-gradient(to bottom,#FF8E53dd,#FF8E5366)"><span class="em">?</span><span>?</span></div>
-      <div class="key" style="background:linear-gradient(to bottom,#FFD93Ddd,#FFD93D66)"><span class="em">??</span><span>?</span></div>
-      <div class="key" style="background:linear-gradient(to bottom,#6BCB77dd,#6BCB7766)"><span class="em">??</span><span>?</span></div>
-      <div class="key" style="background:linear-gradient(to bottom,#4D96FFdd,#4D96FF66)"><span class="em">??</span><span>?</span></div>
-      <div class="key" style="background:linear-gradient(to bottom,#845EC2dd,#845EC266)"><span class="em">??</span><span>?2</span></div>
-      <div class="key" style="background:linear-gradient(to bottom,#FF6F91dd,#FF6F9166)"><span class="em">??</span><span>?2</span></div>
-      <div class="key" style="background:linear-gradient(to bottom,#FF6B6Bdd,#FF6B6B66)"><span class="em">??</span><span>?2</span></div>
+<!-- ══ PIANO TAB ══ -->
+<div id="tab-piano">
+  <!-- Sound selector -->
+  <div class="card">
+    <div class="sound-label">🔊 ድምፅ አይነት</div>
+    <div class="sound-btns">
+      <button class="sound-btn active" onclick="setSound(0,this)">🎵 ትዝታ</button>
+      <button class="sound-btn" onclick="setSound(1,this)">🪕 ክራር</button>
+      <button class="sound-btn" onclick="setSound(2,this)">🪈 ፉሪ</button>
+      <button class="sound-btn" onclick="setSound(3,this)">🎻 ማሸ</button>
     </div>
   </div>
 
-  <div class="stats">
-    <div class="stat"><div class="stat-val">3M+</div><div class="stat-lbl">Ethiopian Diaspora</div></div>
-    <div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Traditional Sounds</div></div>
-    <div class="stat"><div class="stat-val">AI</div><div class="stat-lbl">Song Generator</div></div>
-    <div class="stat"><div class="stat-val">Free</div><div class="stat-lbl">To Start</div></div>
+  <!-- Piano Keys -->
+  <div class="card" style="padding:14px 8px;">
+    <div class="keys-wrap">
+      <div class="keys" id="keys"></div>
+    </div>
+    <div class="keys-hint">⌨️ A S D F G H J K &nbsp;|&nbsp; 📱 ቁልፎቹን ዳስስ</div>
   </div>
-</section>
 
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="text-center">
-    <div class="section-tag">? Features</div>
-    <h2 class="section-title">Everything your child needs</h2>
-    <p class="section-sub">Built with love for Ethiopian families around the world</p>
-  </div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">??</div>
-      <h3>Tizita Pentatonic Scale</h3>
-      <p>Authentic Ethiopian musical scales � Tizita, Bati, Ambassel � not just Western music. Your child learns the real thing.</p>
+  <!-- Song input -->
+  <div class="card">
+    <div class="input-row">
+      <input class="song-input" id="songInput" placeholder="🎵 ዘፈን ጠይቅ..." onkeydown="if(event.key==='Enter')parseSong()"/>
+      <button class="song-btn" id="parseBtn" onclick="parseSong()">🎵 ፈልግ</button>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon">??</div>
-      <h3>AI Song Generator</h3>
-      <p>Type any Ethiopian song name and the AI instantly creates the melody. ????, ????, Eskista � any song, instantly.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">??</div>
-      <h3>Fun Learning Game</h3>
-      <p>Kids tap the right key before time runs out. Combo system, high scores, and 3 difficulty levels keep them engaged.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">??</div>
-      <h3>4 Instrument Sounds</h3>
-      <p>Tizita, Krar, Flute (Washint), and Masenqo sounds. Children explore Ethiopia's traditional instruments.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">??</div>
-      <h3>Mobile First</h3>
-      <p>Designed for little fingers on phones and tablets. Touch-optimized with colorful, emoji-rich keys kids love.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">??</div>
-      <h3>Amharic + English</h3>
-      <p>Fully bilingual. Perfect for diaspora children who are growing up between two cultures and two languages.</p>
+    <div id="nowPlaying" class="now-playing hidden">
+      <span class="now-name" id="nowName"></span>
+      <button class="play-btn" id="playBtn" onclick="replaySong()">▶ Play</button>
     </div>
   </div>
-</section>
 
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="text-center">
-    <div class="section-tag">?? How It Works</div>
-    <h2 class="section-title">Simple as ? ? ?</h2>
-    <p class="section-sub">Three steps to musical joy</p>
+  <!-- Suggestions -->
+  <div class="suggs">
+    <button class="sugg" onclick="parseSong('ጨረቃዬ')">🌙 ጨረቃዬ</button>
+    <button class="sugg" onclick="parseSong('አበባዬ')">🌸 አበባዬ</button>
+    <button class="sugg" onclick="parseSong('ትዝታ')">🎶 ትዝታ</button>
+    <button class="sugg" onclick="parseSong('Ethiopian lullaby')">😴 Lullaby</button>
+    <button class="sugg" onclick="parseSong('Tizita melody')">🎵 Tizita</button>
+    <button class="sugg" onclick="parseSong('እናቴ')">💝 እናቴ</button>
+    <button class="sugg" onclick="parseSong('የወፍ ዘፈን')">🐦 የወፍ ዘፈን</button>
+    <button class="sugg" onclick="parseSong('Eskista dance')">💃 Eskista</button>
+    <button class="sugg" onclick="parseSong('Bati scale melody')">🎼 Bati</button>
+    <button class="sugg" onclick="parseSong('Ambassel song')">🏔️ Ambassel</button>
+    <button class="sugg" onclick="parseSong('Anchihoye lene')">🌅 Anchihoye</button>
+    <button class="sugg" onclick="parseSong('የልጅ ጨዋታ')">🎮 የልጅ ጨዋታ</button>
   </div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div>
-        <h3>Download & Open ??</h3>
-        <p>Available on iOS and Android. Open the app � no setup, no account needed to start playing immediately.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div>
-        <h3>Choose Your Mode ??</h3>
-        <p>Free Play to explore, AI Song mode to hear favourite Ethiopian songs, or Game mode to learn while having fun.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div>
-        <h3>Play & Discover ??</h3>
-        <p>Tap the colourful keys, earn combo points, unlock songs, and connect with Ethiopian musical heritage � naturally.</p>
-      </div>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- PRICING -->
-<section id="pricing" style="background:rgba(255,255,255,.02);">
-  <div class="text-center">
-    <div class="section-tag">?? Pricing</div>
-    <h2 class="section-title">Start Free, Grow Big</h2>
-    <p class="section-sub">No credit card required to get started</p>
-  </div>
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-label">Free Forever</div>
-      <div class="price-amount">$0</div>
-      <div class="price-period">always free</div>
-      <ul class="price-features">
-        <li>Full piano keyboard</li>
-        <li>3 AI-generated songs</li>
-        <li>Basic game mode</li>
-        <li>2 instrument sounds</li>
-        <li>Amharic + English</li>
-      </ul>
-      <a href="#waitlist" class="btn-secondary" style="display:block;text-align:center;border-radius:30px;padding:12px;">Get Started Free</a>
+<!-- ══ GAME TAB ══ -->
+<div id="tab-game" class="hidden">
+  <!-- Level selector -->
+  <div class="level-row">
+    <div class="level-card active" id="lv0" onclick="setLevel(0)">
+      <div class="level-name">⭐ ጀማሪ</div>
+      <div class="level-score" id="hs0">🏆 0</div>
     </div>
-    <div class="price-card featured">
-      <div class="price-label">? Premium</div>
-      <div class="price-amount">$2.99</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>Unlimited AI songs</li>
-        <li>All 4 instrument sounds</li>
-        <li>All 3 game levels</li>
-        <li>Progress tracking</li>
-        <li>Offline mode</li>
-        <li>New songs every week</li>
-      </ul>
-      <a href="#waitlist" class="btn-primary" style="display:block;text-align:center;border-radius:30px;padding:12px;">Join Waitlist ?</a>
+    <div class="level-card" id="lv1" onclick="setLevel(1)">
+      <div class="level-name">⭐⭐ መካከለኛ</div>
+      <div class="level-score" id="hs1">🏆 0</div>
+    </div>
+    <div class="level-card" id="lv2" onclick="setLevel(2)">
+      <div class="level-name">⭐⭐⭐ ባለሙያ</div>
+      <div class="level-score" id="hs2">🏆 0</div>
     </div>
   </div>
-</section>
 
-<!-- WAITLIST -->
-<section class="waitlist" id="waitlist">
-  <div class="text-center">
-    <div class="section-tag">?? Early Access</div>
-    <h2 class="section-title">Be the First to Play</h2>
-    <p class="section-sub">Join hundreds of Ethiopian families waiting for launch. Early members get 3 months Premium free.</p>
+  <!-- Game phases -->
+  <div class="card game-center" id="phase-idle">
+    <div style="font-size:48px;margin-bottom:8px;">🎯</div>
+    <div class="game-title">የቁልፍ ጨዋታ</div>
+    <div class="game-sub">ቁልፍ ሲያሳይ ትክክለኛውን ተጫን!<br/>🔥 ኮምቦ ከፍ ሲል ተጨማሪ ነጥብ</div>
+    <button class="start-btn" onclick="startGame()">▶ ጀምር</button>
   </div>
-  <div class="waitlist-form">
-    <input type="email" id="emailInput" placeholder="Enter your email address"/>
-    <button class="btn-primary" onclick="handleWaitlist()">?? Join Free</button>
-  </div>
-  <p class="success-msg" id="successMsg" style="text-align:center;">?? ?? ???? ??????! We'll notify you at launch.</p>
-  <p style="color:rgba(255,255,255,.3);font-size:.78rem;text-align:center;margin-top:14px;">No spam. Unsubscribe anytime. ??</p>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="logo">
-    <span class="logo-text">?? Ethiopian Kids Piano</span>
+  <div class="card game-center hidden" id="phase-countdown">
+    <div class="countdown-num" id="countdownNum">3</div>
+    <div class="game-sub">ዝግጁ ሁን...</div>
   </div>
-  <p>� 2025 akliloves.com � Made with ?? for Ethiopian families worldwide ????</p>
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">Contact</a>
+
+  <div id="phase-playing" class="hidden">
+    <div class="score-bar">
+      <span class="score-val">⭐ <span id="scoreVal">0</span></span>
+      <span class="combo-badge hidden" id="comboBadge">🔥 <span id="comboVal">0</span>x</span>
+      <span class="remaining" id="remainingVal">1/5</span>
+    </div>
+    <div class="card target-card" id="targetCard">
+      <div class="target-emoji" id="targetEmoji">🌸</div>
+      <div class="target-note" id="targetNoteEl">ዶ</div>
+      <div class="target-hint">ይህን ቁልፍ ተጫን!</div>
+      <div id="feedbackEl"></div>
+      <div class="progress-bg"><div class="progress-fill" id="progressFill" style="width:100%;background:#38ef7d;"></div></div>
+    </div>
+    <div class="card" style="padding:10px 8px;">
+      <div class="keys" id="game-keys"></div>
+    </div>
   </div>
-</footer>
+
+  <div class="card game-center hidden" id="phase-result">
+    <div style="font-size:52px;" id="resultEmoji">🏆</div>
+    <div class="game-title" id="resultTitle">አስደናቂ!</div>
+    <div class="result-row">
+      <div class="result-item"><div class="result-val" style="color:#FFD93D" id="rScore">0</div><div class="result-lbl">ነጥብ</div></div>
+      <div class="result-item"><div class="result-val" style="color:#FF8E53" id="rCombo">0x</div><div class="result-lbl">ኮምቦ</div></div>
+      <div class="result-item"><div class="result-val" style="color:#6BCB77" id="rAccuracy">0/0</div><div class="result-lbl">ትክክል</div></div>
+    </div>
+    <div class="new-record hidden" id="newRecord">🏆 አዲስ ሪኮርድ!</div>
+    <div class="result-btns">
+      <button class="btn-green" onclick="startGame()">🔄 እንደገና</button>
+      <button class="btn-purple" onclick="goIdle()">🏠 መነሻ</button>
+    </div>
+  </div>
+</div>
 
 <script>
-  function handleWaitlist() {
-    const input = document.getElementById('emailInput');
-    const msg = document.getElementById('successMsg');
-    if (!input.value || !input.value.includes('@')) {
-      input.style.borderColor = '#FF6B6B';
-      setTimeout(() => input.style.borderColor = 'rgba(255,255,255,.2)', 1500);
-      return;
-    }
-    input.style.display = 'none';
-    document.querySelector('.waitlist-form button').style.display = 'none';
-    msg.style.display = 'block';
-  }
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
-    });
+const NOTES = ['ዶ','ሬ','ሚ','ላ','ሲ','ዶ2','ሬ2','ሚ2'];
+const COLORS = ['#FF6B6B','#FF8E53','#FFD93D','#6BCB77','#4D96FF','#845EC2','#FF6F91','#FF4500'];
+const EMOJIS = ['🌸','⭐','🌙','🌿','💧','🦋','🌺','🌟'];
+const FREQS = {ዶ:293.66,ሬ:329.63,ሚ:369.99,ላ:440,ሲ:493.88,'ዶ2':587.33,'ሬ2':659.25,'ሚ2':739.99};
+const KB = ['a','s','d','f','g','h','j','k'];
+const LEVELS = [{name:'ጀማሪ',speed:2500,count:5},{name:'መካከለኛ',speed:1800,count:8},{name:'ባለሙያ',speed:1200,count:12}];
+const SOUNDS = [
+  {type:'triangle',vib:5.5,vibAmt:4},
+  {type:'sawtooth',vib:7,vibAmt:6,dist:true},
+  {type:'sine',vib:6,vibAmt:3,bright:true},
+  {type:'square',vib:4,vibAmt:8,lp:800}
+];
+
+let ctx = null, soundIdx=0, currentSong=null, isPlaying=false, songTouts=[];
+let gamePhase='idle', levelIdx=0, targetNote=null, score=0, combo=0, maxCombo=0;
+let remaining=0, history=[], highScores=[0,0,0];
+let noteTimer=null, progressInterval=null, countdownInterval=null;
+
+function initAudio(){
+  if(!ctx) ctx = new (window.AudioContext||window.webkitAudioContext)();
+  if(ctx.state==='suspended') ctx.resume();
+}
+
+function playTone(freq, dur=0.7, sIdx=null){
+  initAudio();
+  const s = SOUNDS[sIdx??soundIdx];
+  const osc=ctx.createOscillator(), gain=ctx.createGain();
+  const vib=ctx.createOscillator(), vgain=ctx.createGain();
+  vib.frequency.value=s.vib; vgain.gain.value=s.vibAmt;
+  vib.connect(vgain); vgain.connect(osc.frequency);
+  if(s.dist){
+    const w=ctx.createWaveShaper(), c=new Float32Array(256);
+    for(let i=0;i<256;i++){const x=i*2/256-1;c[i]=x*(23)/(1+20*Math.abs(x));}
+    w.curve=c; osc.connect(w); w.connect(gain);
+  } else if(s.bright){
+    const f=ctx.createBiquadFilter(); f.type='highshelf'; f.frequency.value=2000; f.gain.value=8;
+    osc.connect(f); f.connect(gain);
+  } else if(s.lp){
+    const f=ctx.createBiquadFilter(); f.type='lowpass'; f.frequency.value=s.lp;
+    osc.connect(f); f.connect(gain);
+  } else { osc.connect(gain); }
+  gain.connect(ctx.destination);
+  osc.type=s.type; osc.frequency.setValueAtTime(freq,ctx.currentTime);
+  gain.gain.setValueAtTime(0,ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.3,ctx.currentTime+0.03);
+  gain.gain.linearRampToValueAtTime(0.15,ctx.currentTime+dur*0.7);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
+  vib.start(ctx.currentTime+0.08); osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime+dur); vib.stop(ctx.currentTime+dur);
+}
+
+function spawnParticle(noteIdx){
+  const p=document.createElement('div'); p.className='particle'; p.textContent=EMOJIS[noteIdx]||'⭐';
+  p.style.left=(noteIdx/NOTES.length*80+10)+'%'; p.style.bottom='40%';
+  document.body.appendChild(p); setTimeout(()=>p.remove(),1200);
+}
+
+function pressKey(note, fromGame=false){
+  const freq=FREQS[note]; if(!freq) return;
+  playTone(freq,0.75);
+  const idx=NOTES.indexOf(note); spawnParticle(idx);
+  // Animate
+  document.querySelectorAll('.key[data-note="'+note+'"]').forEach(k=>{
+    k.classList.add('active');
+    setTimeout(()=>k.classList.remove('active'),300);
   });
+}
+
+function buildKeys(container, gameMode=false){
+  container.innerHTML='';
+  NOTES.forEach((note,i)=>{
+    const k=document.createElement('button');
+    k.className='key'; k.dataset.note=note;
+    k.style.background=`linear-gradient(to bottom,${COLORS[i]}dd,${COLORS[i]}66)`;
+    k.style.boxShadow=`0 6px 14px rgba(0,0,0,0.4)`;
+    k.innerHTML=`<span class="key-emoji">${EMOJIS[i]}</span><span class="key-note" style="color:white">${note}</span><span class="key-kb">${KB[i].toUpperCase()}</span>`;
+    k.addEventListener('click',()=>{ if(gameMode) handleGamePress(note); else pressKey(note); });
+    k.addEventListener('touchstart',e=>{e.preventDefault(); if(gameMode) handleGamePress(note); else pressKey(note);},{passive:false});
+    container.appendChild(k);
+  });
+}
+
+buildKeys(document.getElementById('keys'));
+buildKeys(document.getElementById('game-keys'),true);
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  const idx=KB.indexOf(e.key.toLowerCase()); if(idx<0) return;
+  if(gamePhase==='playing') handleGamePress(NOTES[idx]); else pressKey(NOTES[idx]);
+});
+
+function setSound(i, btn){
+  soundIdx=i; playTone(FREQS['ላ'],0.4,i);
+  document.querySelectorAll('.sound-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function switchTab(t){
+  document.getElementById('tab-piano').classList.toggle('hidden',t!=='piano');
+  document.getElementById('tab-game').classList.toggle('hidden',t!=='game');
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',(i===0&&t==='piano')||(i===1&&t==='game')));
+}
+
+// ── SONG PLAYER ──
+async function parseSong(name){
+  name = name || document.getElementById('songInput').value.trim();
+  if(!name) return;
+  const btn=document.getElementById('parseBtn');
+  btn.textContent='⏳'; btn.disabled=true;
+  document.getElementById('nowPlaying').classList.add('hidden');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','x-api-key':'YOUR_API_KEY_HERE'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:`Create Ethiopian children's melody for: "${name}". Use ONLY: ዶ,ሬ,ሚ,ላ,ሲ,ዶ2,ሬ2,ሚ2. Respond ONLY JSON: {"title":"...","notes":[{"note":"ዶ","duration":0.5,"time":0},...]} 25-35 notes.`}]})
+    });
+    const data=await res.json();
+    const song=JSON.parse(data.content.map(c=>c.text||'').join('').replace(/```json|```/g,'').trim());
+    currentSong=song;
+    document.getElementById('nowName').textContent='🎵 '+song.title;
+    document.getElementById('nowPlaying').classList.remove('hidden');
+    document.getElementById('playBtn').onclick=replaySong;
+    playSongData(song);
+  }catch(e){ alert('ዘፈኑን ማሰናዳት አልተቻለም! API key ያስፈልጋል።'); }
+  finally{ btn.textContent='🎵 ፈልግ'; btn.disabled=false; }
+}
+
+function playSongData(song){
+  songTouts.forEach(clearTimeout); isPlaying=true;
+  const pb=document.getElementById('playBtn');
+  pb.textContent='⏹ Stop'; pb.onclick=stopSong; pb.className='stop-btn';
+  const touts=[];
+  song.notes.forEach(({note,time,duration})=>{
+    const f=FREQS[note]; if(!f) return;
+    touts.push(setTimeout(()=>{playTone(f,duration); pressKey(note);},time*1000));
+  });
+  const maxT=Math.max(...song.notes.map(n=>n.time+n.duration));
+  touts.push(setTimeout(()=>{isPlaying=false; pb.textContent='▶ Play'; pb.onclick=replaySong; pb.className='play-btn';}, (maxT+0.5)*1000));
+  songTouts=touts;
+}
+
+function stopSong(){ songTouts.forEach(clearTimeout); isPlaying=false; const pb=document.getElementById('playBtn'); pb.textContent='▶ Play'; pb.onclick=replaySong; pb.className='play-btn'; }
+function replaySong(){ if(currentSong) playSongData(currentSong); }
+
+// ── GAME ──
+function setLevel(i){
+  levelIdx=i;
+  document.querySelectorAll('.level-card').forEach((c,j)=>c.classList.toggle('active',j===i));
+}
+
+function showPhase(p){
+  ['idle','countdown','playing','result'].forEach(ph=>{
+    const el=document.getElementById('phase-'+ph);
+    el.classList.toggle('hidden',ph!==p);
+  });
+  gamePhase=p;
+}
+
+function startGame(){
+  score=0; combo=0; maxCombo=0; history=[];
+  document.getElementById('scoreVal').textContent='0';
+  document.getElementById('comboBadge').classList.add('hidden');
+  showPhase('countdown');
+  let c=3; document.getElementById('countdownNum').textContent=c;
+  clearInterval(countdownInterval);
+  countdownInterval=setInterval(()=>{
+    c--; document.getElementById('countdownNum').textContent=c;
+    if(c<=0){ clearInterval(countdownInterval); showPhase('playing'); nextNote(); }
+  },1000);
+}
+
+function goIdle(){ clearTimers(); showPhase('idle'); }
+
+function clearTimers(){ clearTimeout(noteTimer); clearInterval(progressInterval); }
+
+function nextNote(){
+  if(remaining<=0){ endGame(); return; }
+  targetNote=NOTES[Math.floor(Math.random()*NOTES.length)];
+  const idx=NOTES.indexOf(targetNote);
+  document.getElementById('targetEmoji').textContent=EMOJIS[idx];
+  document.getElementById('targetNoteEl').textContent=targetNote;
+  document.getElementById('targetNoteEl').style.color=COLORS[idx];
+  document.getElementById('feedbackEl').textContent='';
+  document.getElementById('targetCard').className='card target-card';
+  document.getElementById('remainingVal').textContent=(LEVELS[levelIdx].count-remaining+1)+'/'+LEVELS[levelIdx].count;
+  // Hint sound
+  setTimeout(()=>playTone(FREQS[targetNote],0.4),150);
+  // Progress bar
+  const speed=LEVELS[levelIdx].speed, steps=40, interval=speed/steps; let step=0;
+  clearInterval(progressInterval);
+  progressInterval=setInterval(()=>{
+    step++; const pct=Math.max(0,100-(step/steps*100));
+    const fill=document.getElementById('progressFill');
+    fill.style.width=pct+'%';
+    fill.style.background=pct>60?'#38ef7d':pct>30?'#FFD93D':'#FF6B6B';
+  },interval);
+  // Miss timer
+  clearTimeout(noteTimer);
+  noteTimer=setTimeout(()=>{
+    clearInterval(progressInterval);
+    showFeedback('miss');
+    history.push({note:targetNote,hit:false});
+    combo=0; document.getElementById('comboBadge').classList.add('hidden');
+    remaining--; setTimeout(()=>nextNote(),500);
+  },speed);
+}
+
+function handleGamePress(note){
+  if(gamePhase!=='playing'||!targetNote) return;
+  pressKey(note);
+  if(note===targetNote){
+    clearTimeout(noteTimer); clearInterval(progressInterval);
+    showFeedback('correct');
+    const bonus=combo>=3?20:combo>=2?15:10;
+    score+=bonus; combo++; if(combo>maxCombo) maxCombo=combo;
+    document.getElementById('scoreVal').textContent=score;
+    if(combo>=2){ document.getElementById('comboBadge').classList.remove('hidden'); document.getElementById('comboVal').textContent=combo; }
+    history.push({note,hit:true});
+    remaining--;
+    setTimeout(()=>{ if(remaining<=0) endGame(); else nextNote(); },400);
+  } else {
+    showFeedback('wrong'); combo=0; document.getElementById('comboBadge').classList.add('hidden');
+  }
+}
+
+function showFeedback(type){
+  const card=document.getElementById('targetCard');
+  const el=document.getElementById('feedbackEl');
+  card.className='card target-card '+type;
+  if(type==='correct'){ el.className='feed-correct'; el.textContent='✅ ትክክል! '+(combo>=2?'🔥 '+combo+'x':''); }
+  else if(type==='wrong'){ el.className='feed-wrong'; el.textContent='❌ ተሳስተሃል'; }
+  else { el.className='feed-wrong'; el.textContent='⏰ ጊዜው አለቀ!'; }
+}
+
+function endGame(){
+  clearTimers(); showPhase('result');
+  const hits=history.filter(h=>h.hit).length;
+  const total=history.length;
+  if(score>highScores[levelIdx]){ highScores[levelIdx]=score; document.getElementById('newRecord').classList.remove('hidden'); }
+  else { document.getElementById('newRecord').classList.add('hidden'); }
+  document.getElementById('hs'+levelIdx).textContent='🏆 '+highScores[levelIdx];
+  document.getElementById('rScore').textContent=score;
+  document.getElementById('rCombo').textContent=maxCombo+'x';
+  document.getElementById('rAccuracy').textContent=hits+'/'+total;
+  const pct=total?hits/total:0;
+  document.getElementById('resultEmoji').textContent=pct>=0.9?'🏆':pct>=0.6?'🌟':'👏';
+  document.getElementById('resultTitle').textContent=pct>=0.9?'አስደናቂ!':pct>=0.6?'ጥሩ!':'ሞክር!';
+}
+
+// Init game remaining
+function initRemaining(){ remaining=LEVELS[levelIdx].count; }
+const _startGame=startGame;
+window.startGame=function(){ initRemaining(); _startGame(); };
 </script>
 </body>
 </html>
